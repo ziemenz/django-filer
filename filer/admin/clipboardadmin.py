@@ -35,10 +35,10 @@ class ClipboardAdmin(admin.ModelAdmin):
     verbose_name_plural = "DEBUG Clipboards"
 
     def get_urls(self):
-        from django.conf.urls import patterns, url
+        from django.conf.urls import url
         urls = super(ClipboardAdmin, self).get_urls()
         from filer import views
-        url_patterns = patterns('',
+        url_patterns = [
             url(r'^operations/paste_clipboard_to_folder/$',
                 self.admin_site.admin_view(views.paste_clipboard_to_folder),
                 name='filer-paste_clipboard_to_folder'),
@@ -56,7 +56,7 @@ class ClipboardAdmin(admin.ModelAdmin):
             url(r'^operations/upload/no_folder/$',
                 self.ajax_upload,
                 name='filer-ajax_upload'),
-        )
+        ]
         url_patterns.extend(urls)
         return url_patterns
 
